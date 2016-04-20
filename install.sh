@@ -45,7 +45,6 @@ echo "$(grep -v "$edge_community_repo" /etc/apk/repositories)" > /etc/apk/reposi
 # Install node.js syslog-ng zeromq initsh bashalias
 apk add syslog-ng
 cp -R /install/syslog-ng/* /
-cp -R /install/initsh/* /
 cp -R /install/bashalias/* /
 
 # Clean up
