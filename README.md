@@ -4,14 +4,9 @@ Runit, Syslog-ng and Consul with an init script.
 
 This docker is a base docker for some of the MetOcean web-stack.
 
-## initsh
+## dumb-init
 
-The docker is started using /sbin/initsh as the master process (PID 1), it does the following:
-
-* checks the /startup folder for any startup .sh scripts.
-* starts runsvdir, runit then starts the services in the docker.
-* when the docker is shutdown initsh signals all runit services to stop, then waits 2 seconds, then shuts down.
-* also handles zombie processes.
+The docker is started using dumb-init as the master process (PID 1), it does the following:
 
 ## runit
 
@@ -32,50 +27,7 @@ Note:
 
 http://smarden.org/runit/
 
-## startup folder
-
-"/sbin/initsh" script checks for the existance of a directory '/startup' and will execute any scripts that end with ".sh".
-Notes:
-* the startup scripts run before runit services.
-* if any script exits with a non-zero code the docker will exit with the same code and not start runit.
-
-example:
-
-This example makes docker output the message 'meh lets not run' and exits with 35 when you try to run metocean/aroha.
-
-create /tmp/startup/kill_docker.sh with:
-``` bash
-echo 'meh lets not run'
-exit 35
-```
-run docker with the /startup folder mounted.
-``` bash
-docker run -v /tmp/startup:/startup metocean/aroha
-```
-output will be
-``` bash
-meh lets not run
-INIT ERROR: script /startup/test.sh exited with code 35
-```
-
 ## logging
 
 Processes / services started in this docker are expected to output logs to stdout. Initsh (PID 1) then pipes this back to the host running the docker.
-
 Syslog-ng is used for piping dmesg to the initsh (PID 1).
-
-## Consul
-
-MetOcean uses the consul for service discovery, failover etc... check consul.io for more details.
-
-If you would like to stop consul from running you can:
-
-create /tmp/startup/stop_consul.sh with:
-``` bash
-echo 'removing consul service'
-rm -rf /etc/service/consul
-```
-run docker with the /startup folder mounted.
-``` bash
-docker run -v /tmp/startup:/startup metocean/aroha
-```

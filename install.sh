@@ -33,8 +33,10 @@ make
 mv dumb-init /sbin/
 
 echo '---- installing runit ----'
-tar -C /tmp -xvf /install/runit-2.1.2.tar.gz
-cd /tmp/admin/runit-2.1.2/src
+#tar -C /tmp -xvf /install/runit-2.1.2.tar.gz
+#cd /tmp/admin/runit-2.1.2/src
+unzip /install/runit-2.1.2-hacked.zip -d /tmp
+cd /tmp/runit-2.1.2-hacked/src
 make
 cp chpst runit runit-init runsv runsvchdir runsvdir sv svlogd utmpset /sbin
 
