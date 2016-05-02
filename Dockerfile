@@ -6,4 +6,4 @@ ENV CONSUL_VERSION=0.6.4 GOMAXPROCS=2
 ADD . /install/
 RUN /install/install.sh
 
-CMD ["/sbin/dumb-init", "/sbin/runsvdir", "-P", "/etc/service"]
+CMD ["/sbin/dumb-init-hacked", "/sbin/runsvdir", "-P", "/etc/service"]

@@ -10,7 +10,7 @@ echo "$edge_community_repo" >> /etc/apk/repositories
 apk update
 apk add go git gcc make musl-dev bash unzip zip tar curl
 
-echo '----- Install Consul -----'
+echo '----- Installing Consul -----'
 export GOPATH=/tmp/go
 go get github.com/hashicorp/consul
 cd /tmp/go/src/github.com/hashicorp/consul
@@ -18,23 +18,19 @@ git checkout v$CONSUL_VERSION
 make
 mv bin/consul /usr/bin
 
-echo '----- Install Consul UI -----'
+echo '----- Installing Consul UI -----'
 cd /tmp
 curl -o ui.zip -L https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_web_ui.zip
 unzip ui.zip  &&\
 mv static /consul-ui
 
-echo '----- Install dumb-init -----'
-cd /tmp
-curl -o dumb-init.zip -L https://github.com/Yelp/dumb-init/archive/v1.0.1.zip
-unzip dumb-init.zip
-cd dumb-init-1.0.1
+echo '----- Installing dumb-init -----'
+unzip /install/dumb-init-hacked.zip -d /tmp
+cd /tmp/dumb-init-hacked
 make
-mv dumb-init /sbin/
+mv dumb-init-hacked /sbin/
 
-echo '---- installing runit ----'
-#tar -C /tmp -xvf /install/runit-2.1.2.tar.gz
-#cd /tmp/admin/runit-2.1.2/src
+echo '---- Installing runit ----'
 unzip /install/runit-2.1.2-hacked.zip -d /tmp
 cd /tmp/runit-2.1.2-hacked/src
 make
