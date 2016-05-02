@@ -16,9 +16,13 @@ dumd-init-hacked is based on https://github.com/Yelp/dumb-init, 'hacked' has an 
 
 2) Executes the supplied program and parameters as a child process, any signals will be passed to this process. In this docker "/sbin/runsvdir", "-P", "/etc/service.
 
-## runit
+## runit-hacked
 
-runit is used for starting / stopping and logging of services.
+Runit hacked is used for starting / stopping and logging of services. It is haceked version of http://smarden.org/runit/.
+
+The hack made runit's runsvdir program wait until it's services has exited, with a timeout.
+
+### runit services
 
 To make runit start a service you either link or copy a sh script called "run" into:
 /etc/services/[service name]/run
