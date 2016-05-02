@@ -4,9 +4,17 @@ Runit, Syslog-ng and Consul with an init script.
 
 This docker is a base docker for some of the MetOcean web-stack.
 
-## dumb-init
+## dumb-init-hacked
 
-The docker is started using dumb-init as the master process (PID 1), it does the following:
+This docker is started using dumb-init-hacked as the master process (PID 1). It then executes runit's runsvdir program.
+
+dumd-init-hacked is based on https://github.com/Yelp/dumb-init, 'hacked' has an added startup script feature.
+
+### dumd-init-hacked does in order:
+
+1) first scans and run any script found in either "/etc/dumb-init-hacked/startup/" or environment variable "DUMB_INIT_STARTUP_DIR" if set. If any script exits with a none zero, dumb-init-hacked will exit with the same code.
+
+2) Executes the supplied program and parameters as a child process, any signals will be passed to this process.
 
 ## runit
 
