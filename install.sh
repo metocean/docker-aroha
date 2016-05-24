@@ -20,9 +20,9 @@ mkdir /consul
 
 echo '----- Installing Consul UI -----'
 cd /tmp
-curl -o ui.zip -L https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_web_ui.zip
-unzip ui.zip  &&\
-mv static /consul-ui
+wget -O ui.zip http://dl.bintray.com/mitchellh/consul/${CONSUL_VERSION}_web_ui.zip
+unzip ui.zip
+mv dist /consul-ui
 
 echo '----- Installing dumb-init -----'
 unzip /install/dumb-init-hacked.zip -d /tmp
