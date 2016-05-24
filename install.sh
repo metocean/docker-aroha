@@ -21,7 +21,7 @@ mkdir /consul
 echo '----- Installing Consul UI -----'
 cd /tmp
 curl -o ui.zip -L https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_web_ui.zip
-unzip ui.zip
+unzip ui.zip  &&\
 mv static /consul-ui/static
 mv index.html /consul-ui/index.html
 
