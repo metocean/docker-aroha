@@ -16,7 +16,7 @@ curl -o consul.zip -L https://releases.hashicorp.com/consul/${CONSUL_VERSION}/co
 unzip consul.zip
 chmod +x consul
 mv consul /usr/bin
-mkdir consul
+mkdir /consul
 
 echo '----- Installing Consul UI -----'
 cd /tmp
