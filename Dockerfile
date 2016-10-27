@@ -5,3 +5,5 @@ ENV CONSUL_VERSION=0.6.4
 
 ADD . /install/
 RUN /install/install.sh
+
+CMD ["/sbin/dumb-init-hacked", "/sbin/runsvdir", "-P", "/etc/service"]
